@@ -1,0 +1,71 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+    Login
+{% endblock %}
+{% block content %}
+
+
+    {% include 'layouts/navbar_2.html' %}
+
+    <main id="main">
+        <section id="" style="padding-top: 100px;padding-bottom: 20px;">
+            <div class="container mt-5 p-4 rounded" style="background-color: #1A1814;">
+                
+                <table class="table pt-5 " style="color: white; table-layout: fixed;word-wrap: break-word;">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width:10%">#</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <th scope="row"> {{ forloop.counter }}</th>
+                            <td><img class="row-image " style="width:3em" src="{{item.imageURL}}"></td>
+                            <td>{{item.name}}</td>
+                            <td>฿{{item.price}}</td>
+                            <td>{{item.quantity}}
+                                &nbsp;
+                                <i data-product="{{item.id}}" data-action="add"
+                                    class="fas fa-chevron-up update-cart chg-quantity"></i>
+                                <i data-product="{{item.id}}" data-action="remove"
+                                    class="fas fa-chevron-down update-cart chg-quantity"></i>
+                            </td>
+                            <td>฿{{item.total}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <h5>Items: <strong>{{order.get_cart_items}}</strong></h5>
+                <h5>Total: <strong> ฿{{order.get_cart_total|floatformat:2}}</strong></h5>
+            </div>
+        </section><!-- End About Section -->
+
+        <section id="" class="p-2">
+           
+            <div class="container p-4 " style="background-color: #1A1814;">
+                <div class="section-title pb-0">
+                    <h2>Information</h2>
+                    <p>Customer Contact</p>
+                </div>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {{form_customerOrder|crispy}}
+                    {{form_orderTable|crispy}}
+                    <input id="form-button" class="btn btn-success btn-block" type="submit" value="Submit">
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+</main>
+
+{% endblock content %}

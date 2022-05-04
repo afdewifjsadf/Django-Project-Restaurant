@@ -1,0 +1,94 @@
+    <!-- ======= Topbar ======= -->
+    <div id="topbar" class="d-flex align-items-center fixed-top">
+        <div class="container d-flex justify-content-center justify-content-md-between">
+
+            <div class="contact-info d-flex align-items-center">
+                <i class="bi bi-phone d-flex align-items-center"><span>+1 5589 55488 55</span></i>
+                <i class="bi bi-clock d-flex align-items-center ms-4"><span> Mon-Sat: 11AM - 23PM</span></i>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-cente">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+
+            <h1 class="logo me-auto me-lg-0"><a href="{% url 'myapp:index' %}">G4's Project</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="images/logo.png" alt="" class="img-fluid"></a>-->
+
+
+            <div class="container-fluid container-xl d-flex align-items-center justify-content-end">
+                <span style="display: flex"><a href="{% url 'myapp:cart' %}" style="font-size: 180%;"
+                        style="color:rgb(241, 190, 123)" >
+                        <i class="bi bi-basket3-fill"></i>
+                    </a>
+                    {% if order.get_cart_items > 0 %}
+                    <p
+                        style="text-align: center;color:#fff;background-color: red;width: 20px;height: 25px;border-radius: 50%;font-size: 14px;">
+                        {{order.get_cart_items}}
+                    </p>
+                    {% endif %}
+                </span>
+                {% if not request.user.is_authenticated %}
+                <a href="{% url 'myapp:register' %}" class="book-a-table-btn scrollto ">Sign up</button></a>
+                <a href="{% url 'myapp:login' %}" class="book-a-table-btn scrollto ">Login</a>
+                {% endif %}
+
+                {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown book-a-table-btn scrollto p-0" style="list-style-type: none;">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img src="{{ customer.imageURL }}" alt="mdo" width="30" height="30" class="rounded-circle">
+                        {{ request.user }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'myapp:profile' %}"><i class="fas fa-user"></i>
+                                Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'myapp:account' %}"><i class="fas fa-user-edit"></i>
+                                Account Settings</a>
+                        </li>
+                        <li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        {% if request.user.is_staff %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'myapp:report' %}"><i class="fas fa-scroll"></i>
+                                Report</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'myapp:dashboard' %}"><i class="fas fa-chart-line"></i>
+                                Dashboard</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/admin"><i class="fas fa-tools"></i>
+                                Admin</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'myapp:logout' %}"><i class="fas fa-sign-out-alt"></i>
+                                Logout</a>
+                        </li>
+                    </ul>
+                </li>
+                {% endif %}
+            </div>
+
+        </div>
+    </header><!-- End Header -->
+

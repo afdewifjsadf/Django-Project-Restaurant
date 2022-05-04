@@ -1,0 +1,83 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+Report
+{% endblock %}
+{% block content %}
+
+
+{% include 'layouts/navbar_2.html' %}
+<main id="main">
+    <section id="" style="padding-top: 90px;" class="pb-2">
+        <div class="col-lg-6 container mt-5 p-4 rounded " style="background-color: #1A1814;">
+            <div class="section-title pb-0 mb-2">
+                <h2>Report</h2>
+                <p>Report Order Today</p>
+            </div>
+            <h5>Total Order Today : {{ totalorderToday }}</h5>
+            <h5>Total Price Today : ฿{{ totalpriceToday }}</h5>
+            <h5>Date : {{ today }}</h5>
+            <table class="table  " style="color: white; table-layout: fixed;word-wrap: break-word;">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width:30%">Product</th>
+                        <th scope="col">Total Quantity</th>
+                        <th scope="col">Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for k, product in orderListCount.items %}
+                    <tr>
+                        <th scope="row"> {{ k }}</th>
+                        <td> {{ product.qty }}</td>
+                        <td> ฿{{ product.price }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </section><!-- End About Section -->
+    <section id="" style="padding-top: 0px;">
+        <div class="col-lg-6 container mt-5 p-4 rounded " style="background-color: #1A1814;">
+            <div class="section-title pb-0 mb-2">
+                <h2>Report</h2>
+                <p>Report Book Table Today</p>
+            </div>
+            <h5>Total Book Table Today : {{ totalbooktableToday }}</h5>
+            <h5>Date : {{ today }}</h5>
+            <table class="table  " style="color: white; table-layout: fixed;word-wrap: break-word;">
+                <thead>
+                    <tr>
+                        <th scope="col">Time</th>
+                        <th scope="col">Total Book Table</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for k, time in bookTableListCount.items %}
+                    <tr>
+                        <th scope="row"> {{ k }}</th>
+                        <td> {{ time }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </section><!-- End About Section -->
+
+    <section id="" style="padding-top: 0px;">
+        <div class="col-lg-6 container mt-1 p-4 rounded " style="background-color: #1A1814;">
+            <div class="section-title pb-0 mb-2">
+                <h2>Report</h2>
+                <p>PDF Report </p>
+            </div>
+            <a href="{% url 'myapp:pdfreport' %}" class="btn btn-success">Export PDF </a>
+        </div>
+    </section><!-- End About Section -->
+
+
+</main>
+
+{% endblock content %}

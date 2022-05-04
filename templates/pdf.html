@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Report Today</title>
+    <style type="text/css">
+        body {
+            font-weight: 200;
+            font-size: 14px;
+        }
+
+        .header {
+            font-size: 20px;
+            font-weight: 100;
+            text-align: center;
+            color: #007cae;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: 100;
+            /* text-align: right;*/
+            padding: 10px 20px 0px 20px;
+        }
+
+        .title span {
+            color: #007cae;
+        }
+
+        .details {
+            padding: 10px 20px 0px 20px;
+            text-align: left !important;
+            /*margin-left: 40%;*/
+        }
+
+        .hrItem {
+            border: none;
+            height: 1px;
+            /* Set the hr color */
+            color: #333;
+            /* old IE */
+            background-color: #fff;
+            /* Modern Browsers */
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding:4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='wrapper'>
+        <div class='header'>
+            <p class='title'>Report Order Today </p>
+        </div>
+        <div>
+            <div class='details'>
+                <h5>Total Order Today : {{ totalorderToday }}</h5>
+                <h5>Total Price Today : THB {{ totalpriceToday }}</h5>
+                <h5>Date : {{ today }}</h5>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col" style="width:30%">Product</th>
+                        <th scope="col">Total Quantity</th>
+                        <th scope="col">Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for k, product in orderListCount.items %}
+                    <tr>
+                        <th scope="row"> {{ k }}</th>
+                        <td> {{ product.qty }}</td>
+                        <td> THB  {{ product.price }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class='wrapper'>
+        <div class='header' >
+            <p class='title'>Report Book Table Today</p>
+        </div>
+        <div>
+            <div class='details'>
+                <h5>Total Book Table Today : {{ totalbooktableToday }}</h5>
+                <h5>Date : {{ today }}</h5>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Time</th>
+                        <th scope="col">Total Book Table</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for k, time in bookTableListCount.items %}
+                    <tr>
+                        <th scope="row"> {{ k }}</th>
+                        <td> {{ time }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+
+</html>

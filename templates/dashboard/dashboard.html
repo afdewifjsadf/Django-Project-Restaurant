@@ -1,0 +1,162 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include 'layouts/navbar_2.html' %}
+<main id="main">
+    <section id="" style="padding-top: 90px;" class="pb-0">
+        <div class="col-lg-8 container mt-5  p-3 rounded" style="background-color: #1A1814;">
+            <div class="section-title pb-0">
+                <h2>Dashboard</h2>
+                <p> Summary Order</p>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <div class="col-md">
+                        <div class="card text-center text-white  mb-3" id="total-orders"
+                            style=" background-color: #4cb4c7">
+                            <div class="card-header">
+                                <h5 class="card-title">Total Orders</h5>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">{{totol_orders}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="col-md">
+                        <div class="card text-center text-white  mb-3" id="orders-delivered"
+                            style=" background-color: #7abecc">
+                            <div class="card-header">
+                                <h5 class="card-title">Orders Complete</h5>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">{{total_Complete}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="col-md">
+                        <div class="card text-center text-white  mb-3" id="orders-pending"
+                            style=" background-color: #7CD1C0;">
+                            <div class="card-header">
+                                <h5 class="card-title">Orders Pending</h5>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">{{total_pending}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="col-md">
+                        <div class="card text-center text-white  mb-3" id="orders-pending"
+                            style=" background-color: #6C81C0;">
+                            <div class="card-header">
+                                <h5 class="card-title">Orders Processing</h5>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">{{total_processing}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End About Section -->
+
+
+    <section id="" style="padding-top: 90px;" class="pb-0 pt-5">
+        <div class="col-lg-8 container   p-3 rounded" style="background-color: #1A1814;">
+            <div class="section-title pb-0">
+                <h2>Dashboard</h2>
+                <p>Order</p>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="list-group">
+                        <a href="{% url 'myapp:dashboard' %}"
+                            class="list-group-item list-group-item-action {% if not status %}active{% endif%}"
+                            aria-current="true">All</a>
+                        {% for s in STATUS_CHOICE %}
+                        <a href="{% url 'myapp:dashboard' %}?status={{ s }}"
+                            class="list-group-item list-group-item-action {% if status == s %}active{% endif %}">{{ s }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <!-- <h5>LAST ORDERS:</h5>
+                    <hr> -->
+                    <div class="card card-body">
+                        <!-- <a class="btn btn-primary btn-sm btn-block" href="">Create Order</a> -->
+                        <table class="table table-sm" style="table-layout:fixed">
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Update</th>
+                                <th>Remove</th>
+                            </tr>
+                            {% for order in orders %}
+                            <tr>
+                                <td>{{ order.id}}</td>
+                                <td>{{ order.date_created }}</td>
+                                <td>{{ order.status }}</td>
+                                <td><a class="btn btn-primary btn-sm"
+                                        href="{% url 'myapp:updateOrder' order.id %}">Update</a></td>
+                                <td><a class="btn btn-danger btn-sm"
+                                        href="{% url 'myapp:deleteOrder' order.id %}">Delete</a></td>
+                            </tr>
+                            {% endfor %}
+
+
+                        </table>
+                    </div>
+
+                    <ul class="pagination mt-3 d-flex justify-content-center">
+                        {% if orders.has_previous %}
+                            {% if not status %}
+                                <li class="page-item"><a class="page-link" href="?page ={{ orders.previous_page_number }}">Previous</a></li>
+                            {% else  %}
+                                <li class="page-item"><a class="page-link" href="?status={{ status }}&page ={{ orders.previous_page_number }}">Previous</a></li>
+                            {% endif  %}
+
+                        {% endif %}
+
+                        {% for i in orders.paginator.page_range %}
+                        <li class="page-item {% if orders.number == i %}active{% endif %}">
+                            {% if not status %}
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                            {% else  %}
+                            <a class="page-link" href="?status={{ status }}&page={{ i }}">{{ i }}</a>
+
+                            {% endif  %}
+                        </li>
+                        {% endfor %}
+
+                        {% if orders.has_next %}
+                            {% if not status %}
+                            <li class="page-item"><a class="page-link" href="?page={{ orders.next_page_number }}">Next</a></li>
+                            {% else  %}
+                            <li class="page-item"><a class="page-link" href="?status={{ status }}&page={{ orders.next_page_number }}">Next</a></li>
+                            {% endif  %}
+                        {% endif %}
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+</main>
+{% endblock content %}

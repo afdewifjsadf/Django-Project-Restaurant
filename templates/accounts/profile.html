@@ -1,0 +1,85 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include 'layouts/navbar_2.html' %}
+<main id="main">
+    <section id="" style="padding-top: 90px;" class="pb-0">
+        <div class="col-lg-8 container mt-5  p-1 rounded" style="background-color: #1A1814;">
+            <div class="row g-0">
+                <div class="col-md-2 d-flex justify-content-center align-items-center">
+                    <img id="botImage" src="{{ customer.imageURL  }}" alt="Avatar Logo" style="width:80px;height:80px;"
+                        class="rounded-circle z-depth-2">
+                </div>
+                <div class="col-md-10">
+                    <div class="card-body">
+                        <h4 class="card-title mb-0">{{ request.user }}</h4>
+                        <div style="color: #aaaaaa;" class="mb-2">
+                            {{ customer.First_Name}} {{ customer.Last_Name}}
+                        </div>
+                        <kbd style="background-color: green;">Total Order {{ total_order }}</kbd>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End About Section -->
+
+
+    <section id=""  class="pt-0">
+        <div class="col-lg-8 container mt-5  p-4 rounded" style="background-color: #1A1814;">
+            <div class="section-title pb-0">
+                <h2>Information</h2>
+                <p>History</p>
+            </div>
+            <table class="table  " style="color: white; table-layout: fixed;word-wrap: break-word;">
+                <thead>
+                    <tr style="">
+                        <th scope="col" style="width:10%">#</th>
+                        <th scope="col" style="width:30%">List Product</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Total Quantity</th>
+                        <th scope="col">Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for value in queryset  %}
+                    <tr>
+                        <th scope="row"> {{ forloop.counter0|add:queryset.start_index   }}</th>
+                        <td >
+                            {% for item in value.ordreItem_list %}
+                                <li>{{ item.product.name }} x{{item.quantity}}</li>
+                            {% endfor %}
+                        </td>
+                        <td>{{ value.order_list.status }}</td>
+                        <td>{{ value.order_list.date_created }}</td>
+                        <td>{{ value.order_list.get_cert_items }} </td>
+                        <td> ฿{{ value.order_list.get_cart_total }}</td>
+                    </tr>
+                    {% endfor %}
+               
+                </tbody>
+            </table>
+
+            <ul class="pagination d-flex justify-content-center ">
+                {% if queryset.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page ={{ queryset.previous_page_number }}">Previous</a></li>
+                {% endif %}
+            
+                {% for i in queryset.paginator.page_range %}
+                <li class="page-item {% if queryset.number == i %}active{% endif %}">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                </li>
+                {% endfor %}
+            
+                {% if queryset.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ queryset.next_page_number }}">Next</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </section><!-- End About Section -->
+
+
+
+</main>
+{% endblock content %}
