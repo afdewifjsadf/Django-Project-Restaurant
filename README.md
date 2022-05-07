@@ -1,4 +1,4 @@
-# Django-Project-Storeproject
+# Django-Project-Restaurant
 
 
 ## reset-password setting
